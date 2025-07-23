@@ -1,11 +1,29 @@
 #!/bin/bash
 set -e
 
+# Function to detect package manager
+detect_package_manager() {
+  if command -v apt &>/dev/null; then
+    echo "apt"
+  elif command -v dnf &>/dev/null; then
+    echo "dnf"
+  else
+    echo "Unsupported distribution. Please install dependencies manually." >&2
+    exit 1
+  fi
+}
+
 # Step 1: Install dependencies
+PACKAGE_MANAGER=$(detect_package_manager)
+echo "[+] Detected package manager: $PACKAGE_MANAGER"
 echo "[+] Installing required packages..."
-sudo apt update
-sudo apt install -y gnupg2 gnupg-agent scdaemon pcscd \
-  pinentry-gtk2 yubikey-manager
+
+if [ "$PACKAGE_MANAGER" = "apt" ]; then
+  sudo apt update
+  sudo apt install -y gnupg2 gnupg-agent scdaemon pcscd     pinentry-gtk2 yubikey-manager
+elif [ "$PACKAGE_MANAGER" = "dnf" ]; then
+  sudo dnf install -y gnupg2 gnupg2-smime gnupg2-curl pcsc-lite     pinentry-gtk yubikey-manager
+fi
 
 # Step 2: Set up temporary offline GPG directory
 echo "[+] Creating offline GPG environment..."
