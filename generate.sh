@@ -25,6 +25,12 @@ elif [ "$PACKAGE_MANAGER" = "dnf" ]; then
   sudo dnf install -y gnupg2 gnupg2-smime gnupg2-curl pcsc-lite     pinentry-gtk yubikey-manager
 fi
 
+# Step 1.5: Optionally allow user to disconnect wi-fi
+echo
+echo "⚠️  Packages have been installed."
+echo "🛑  Now is a good time to disconnect from Wi-Fi or Ethernet for extra key generation security."
+read -p "🔌 Disconnect from the network now and press Enter to continue..."
+
 # Step 2: Set up temporary offline GPG directory
 echo "[+] Creating offline GPG environment..."
 export GNUPGHOME="$HOME/gnupg-offline"
