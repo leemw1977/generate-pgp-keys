@@ -22,7 +22,7 @@ Keys are generated in an **offline GPG environment**, and private subkeys are la
 Clone this repository or download just the script:
 
 ```bash
-curl -O https://raw.githubusercontent.com/leemw1977/generate-pgp-keys/generate-pgp-keys.sh
+curl -O https://raw.githubusercontent.com/leemw1977/generate-pgp-keys/generate.sh
 ```
 
 Or if you've cloned the repo:
@@ -37,7 +37,7 @@ cd generate-pgp-keys/
 ### 2. Make It Executable
 
 ```bash
-chmod +x generate-pgp-keys.sh
+chmod +x generate.sh
 ```
 
 ---
